@@ -56,19 +56,13 @@ for i in range(2495):
     labels.append(testSet_label[i])
 
 count_vect = CountVectorizer()
-X_train_counts = count_vect.fit_transform(data)
+X_train_counts = count_vect.fit_transform(data[:3000])
 X_train_counts.shape
 
-from sklearn.feature_extraction.text import TfidfTransformer
 tfidf_transformer = TfidfTransformer()
 X_train = tfidf_transformer.fit_transform(X_train_counts)
 X_train.shape
 
-labels.shape
-#X_train = count_vect.transform(data)
-#X_test = count_vect.transform(data)
-from sklearn.naive_bayes import GaussianNB as nb
-
-
-nb.fit(X_train,labels, None)
-print (nb.predict(X_train,labels))
+nb=GaussianNB()
+nb.fit(X_train.toarray(),labels[:3000])
+print (nb.predict(X_train.toarray()))
